@@ -3,6 +3,8 @@
 <head>
 <title>Facebook Login JavaScript Example</title>
 <meta charset="UTF-8">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
@@ -107,8 +109,39 @@
         function (response) {
           if (response && !response.error) {
            /* handle the result */
-            console.log(response.summary.total_count);
-	    	}
+		var count = response.summary.total_count
+
+            	console.log(count);
+
+	statement1 = 'You have ' + response.summary.total_count + ' friends!';
+
+        if (response.summary.total_count < 200) {
+          statement2 ='Huh. That is a bummer.';
+          imgage = "https://ih1.redbubble.net/image.195485388.5310/flat,800x800,075,f.jpg";
+        }
+        else if (response.summary.total_count >= 200 && response.summary.total_count < 400) {
+          statement2 ="Well, I'm glad you at least have friends.";
+          imgage = "https://photos.travelblog.org/Photos/67752/409956/f/4165799-happy-weird-Dutch-man-0.jpg";
+        
+        }else if (response.summary.total_count >= 400 && response.summary.total_count < 600) {
+          statement2 ="That's pretty average.";
+          imgage = "http://is5.mzstatic.com/image/thumb/Purple62/v4/e3/45/ed/e345edf0-a8b0-6919-746e-cf8d67e3e323/source/175x175bb.jpg";
+        
+        }
+        else if (response.summary.total_count >= 600 && response.summary.total_count < 800) {
+          statement2 ="Seems good.";
+          imgage = "https://www.newsmax.com/Newsmax/files/b3/b3b0f6e2-42bf-481f-96ca-7df6a9359daf.jpg";
+        
+        }
+        else if (response.summary.total_count >= 800) {
+          statement2 ="Well, aren't you a social butterfly!";
+          imgage = "https://i.ytimg.com/vi/g2OdfvXm6Ak/maxresdefault.jpg";
+        }
+          var insert='<div class="card"><img class="card-img-top" src="' + imgage + '" style="height: 250px" alt=""><div class="card-body"><h4 class="card-title">' + statement1 + '</h4><p class="card-text">' + statement2 + '</p></div></div>'
+          document.getElementById('howCool').innerHTML = insert    
+
+///////////////////////////////////////////////////////////
+    	   }
          }
         );
 	  document.getElementById('status').innerHTML =
@@ -123,9 +156,16 @@
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
-<div id='status'></div>
-<fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
-</fb:login-button>
+<div class="container">
+  <div class="jumbotron">
+    <h1>Popularity Analyzer</h1> 
+    <p>Sign in To Find out</p> 
+  </div> 
+
+  <p id='status'></p>
+  <fb:login-button scope="public_profile,email,user_friends" onlogin="checkLoginState();">
+  </fb:login-button>
+</div>
 
 <!--   <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -140,5 +180,11 @@
 </div>
 -->
 
+<div class="row align-items-center">
+	<div class="col-md-6 col-md-offset-3">
+	<div id="howCool">
+</div>
+</div>
+</div>
 </body>
 </html>
